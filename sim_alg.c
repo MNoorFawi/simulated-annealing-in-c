@@ -6,8 +6,8 @@
 char target[] = "I FEEL HOMESICK AND I WANT TO GO TO EGYPT";
 char domain[] = "ABCDEFGHIJKLMNOPQRSTUVWXYZ ";
 
-#define CHOICE(sizeof(domain) - 1)
-#define STRLEN(sizeof(target) - 1)
+#define CHOICE (sizeof(domain) - 1)
+#define STRLEN (sizeof(target) - 1)
 
 // returns random integer from 0 to n - 1
 int rand_int(int n) {
