@@ -25,7 +25,7 @@ int cost(char * a, char * b) {
 }
 
 void simulated_annealing(char * current_sol, int( * cost_func)(char * , char * ),
-  float temp, float cool) {
+  float temp, float cool, int *iter) {
   int i;
   double current_cost, new_cost, p;
   char new_sol[STRLEN];
@@ -40,6 +40,7 @@ void simulated_annealing(char * current_sol, int( * cost_func)(char * , char * )
     current_cost = cost_func(target, current_sol);
     new_cost = cost_func(target, new_sol);
     p = exp((-new_cost - current_cost) / temp);
+	//printf("iteration: %i\n", iter);
 
     if (new_cost < current_cost || rand() < p) {
       strcpy(current_sol, new_sol);
@@ -47,13 +48,16 @@ void simulated_annealing(char * current_sol, int( * cost_func)(char * , char * )
     }
 
     temp = temp * cool;
+	*iter = *iter + 1;
   }
 }
 
 int main() {
   printf("\n\tThe algorithm should construct the target sentence which is:\n\t\t%s\n\tfrom the alphabet\n",
     target);
+	int iter = 0;
   char * current_sol = (char * ) malloc(STRLEN * sizeof(char));
-  simulated_annealing(current_sol, cost, 1000.0, 0.999);
+  simulated_annealing(current_sol, cost, 1000.0, 0.999, &iter);
+  printf("\n\tnumber of iterations is: %d\n", iter);
   return 0;
 }

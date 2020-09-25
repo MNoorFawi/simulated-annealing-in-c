@@ -31,6 +31,8 @@ current solutions is: I FEYL HOMESICK AND I WANT TO GO TO EGYPT
 
 current cost is: 0.000000
 current solutions is: I FEEL HOMESICK AND I WANT TO GO TO EGYPT
+
+        number of iterations is: 11508
 ```
 
 Now the other algorithm
