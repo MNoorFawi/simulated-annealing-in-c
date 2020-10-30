@@ -30,6 +30,7 @@ int domain[20] = {
 #define CHOICE 20 // length of the domain
 #define TARGET 13 // the target
 #define LEN 4 // the length of the desired array
+#define simulated_annealing(...) siman_wrapper((func_args) {__VA_ARGS__}) // macro for named args in a func
 
 // returns random integer from 0 to n - 1
 int rand_int(int n) {
@@ -66,7 +67,7 @@ int is_dup(int * a, int len) {
 }
 
 // simulated annealing algorithm
-void simulated_annealing(int * current_sol, int( * cost_func)(int * ), float temp, float cool) {
+void siman(int * current_sol, int( * cost_func)(int * ), float temp, float cool) {
   int i, j;
   double current_cost, new_cost, p;
   int new_sol[LEN];
@@ -107,11 +108,25 @@ void simulated_annealing(int * current_sol, int( * cost_func)(int * ), float tem
   }
 }
 
+typedef struct {
+  int* current_sol;
+  int( * cost_func)(int * );
+  float temp, cool;
+}
+func_args;
+
+void siman_wrapper(func_args input) {
+  float temp = input.temp ? input.temp : 100.0;
+  float cool = input.cool ? input.cool : 0.99;
+  printf("\n Temperature = %.2f & Cool = %.2f\n", temp, cool);
+  return siman(input.current_sol, input.cost_func, temp, cool);
+}
+
 int main() {
   printf("\n\tTarget is an array of length %i unique values\n\tsum should be %i\n\tfrom numbers between 1 and %i\n",
     LEN, TARGET, CHOICE);
   // the array to be filled with possible answers
   int * current_sol = (int * ) malloc(LEN * sizeof(int));
-  simulated_annealing(current_sol, cost, 100.0, 0.99);
+  simulated_annealing(current_sol, cost);
   return 0;
 }
