@@ -43,6 +43,8 @@ Now the other algorithm
         sum should be 13
         from numbers between 1 and 20
 
+ Temperature = 100.00 & Cool = 0.99
+ 
 current cost is: 45.000000
 current solution is:
 17 8 16 4
